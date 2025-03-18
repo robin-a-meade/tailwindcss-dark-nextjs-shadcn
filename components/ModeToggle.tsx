@@ -1,21 +1,18 @@
 // Note: This file is a modified version of the original ShadCN file
 // Original copied from https://ui.shadcn.com/docs/dark-mode/next
 //
-// Local modifications to the original ShadCN file
-// * Mon Mar 17 2025 07:55:35 PM HST  Robin A. Meade <robin.a.meade@gmail.com>
-// - Import Check from lucide-react
-// - Retrieve `theme` from useTheme so that we know the theme name
-// - Add a Check icon to the selected theme. Used logic and styling from
-//   https://v0.dev/chat/theme-selector-component-F67qkxdQFPm?b=b_OX4zazdCUCa&p=0
-//   Note how the `ml-auto` class is used to push the Check icon to the right
-//   side of the dropdown menu item.
-//
-// * Tue Mar 18 2025 11:48:06 AM HST  Robin A. Meade <robin.a.meade@gmail.com>
-// - I added Tooltip from ShadCN
-// - I realized I should have used the Radio capabilities of ShadCN's DropDown menu.
-// - TODO: Used the Radio capabilities of ShadCN's DropDown menu
+// Modifications:
+// - Added Tooltip from ShadCN
+// - Used DropdownMenuRadioGroup
+// - Enhanced it to set the initial keyboard focus on the currently selected item
+//   (This required `useRef` and added a lot of complexity.
+//   Too bad this isn't the default behavior of the component.)
+//   I used v0.com:
+//   https://v0.dev/chat/tooltip-for-mode-toggle-bHstyL2JkQm?b=b_9ytZki5DXwu&p=0
 
 'use client';
+
+import * as React from 'react';
 import { Moon, Sun } from 'lucide-react';
 import { useTheme } from 'next-themes';
 
@@ -38,10 +35,43 @@ import {
 
 export default function ModeToggle() {
   const { theme, setTheme } = useTheme();
+  const [open, setOpen] = React.useState(false);
+
+  // Create refs for each theme option
+  const lightRef = React.useRef<HTMLDivElement>(null);
+  const darkRef = React.useRef<HTMLDivElement>(null);
+  const systemRef = React.useRef<HTMLDivElement>(null);
+
+  // Get the ref for the current theme
+  const getActiveRef = () => {
+    switch (theme) {
+      case 'light':
+        return lightRef;
+      case 'dark':
+        return darkRef;
+      case 'system':
+        return systemRef;
+      default:
+        return systemRef;
+    }
+  };
+
+  // Focus the active item when the menu opens
+  const handleOpenChange = (open: boolean) => {
+    setOpen(open);
+
+    if (open) {
+      // Use setTimeout to ensure the menu is fully rendered before focusing
+      setTimeout(() => {
+        const activeRef = getActiveRef();
+        activeRef.current?.focus();
+      }, 0);
+    }
+  };
 
   return (
     <TooltipProvider>
-      <DropdownMenu>
+      <DropdownMenu open={open} onOpenChange={handleOpenChange}>
         <Tooltip>
           <TooltipTrigger asChild>
             <DropdownMenuTrigger asChild>
@@ -60,9 +90,15 @@ export default function ModeToggle() {
           <DropdownMenuLabel>Toggle theme</DropdownMenuLabel>
           <DropdownMenuSeparator />
           <DropdownMenuRadioGroup value={theme} onValueChange={setTheme}>
-            <DropdownMenuRadioItem value="light">Light</DropdownMenuRadioItem>
-            <DropdownMenuRadioItem value="dark">Dark</DropdownMenuRadioItem>
-            <DropdownMenuRadioItem value="system">System</DropdownMenuRadioItem>
+            <DropdownMenuRadioItem ref={lightRef} value="light">
+              Light
+            </DropdownMenuRadioItem>
+            <DropdownMenuRadioItem ref={darkRef} value="dark">
+              Dark
+            </DropdownMenuRadioItem>
+            <DropdownMenuRadioItem ref={systemRef} value="system">
+              System
+            </DropdownMenuRadioItem>
           </DropdownMenuRadioGroup>
         </DropdownMenuContent>
       </DropdownMenu>
