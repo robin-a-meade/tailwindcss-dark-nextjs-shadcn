@@ -84,7 +84,7 @@ export default function RootLayout({
                 width={16}
                 height={16}
               />
-              Go to nextjs.org →
+              nextjs.org
             </a>
             <ModeToggle />
           </footer>

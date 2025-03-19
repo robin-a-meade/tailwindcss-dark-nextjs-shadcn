@@ -1,14 +1,15 @@
-// Note: This file is a modified version of the original ShadCN file
 // Original copied from https://ui.shadcn.com/docs/dark-mode/next
 //
 // Modifications:
 // - Added Tooltip from ShadCN
 // - Used DropdownMenuRadioGroup
 // - Enhanced it to set the initial keyboard focus on the currently selected item
-//   (This required `useRef` and added a lot of complexity.
-//   Too bad this isn't the default behavior of the component.)
+//    This required `useRef` and added some complexity.
+//   It's too bad this isn't the default behavior of the component.
 //   I used v0.com:
 //   https://v0.dev/chat/tooltip-for-mode-toggle-bHstyL2JkQm?b=b_9ytZki5DXwu&p=0
+// - Removed the CSS transitions from the Sun and Moon icons because they weren't working
+//   It has something to do with being nested within the Button component.
 
 'use client';
 
