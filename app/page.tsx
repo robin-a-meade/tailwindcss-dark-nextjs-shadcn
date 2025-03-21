@@ -5,9 +5,9 @@ import { Moon, Sun } from 'lucide-react';
 /** For experimenting with CSS transitions. I'm getting better results now that I use group and group-hover. */
 function CssTransitionDemo() {
   return (
-    <div className="relative h-8 w-8 cursor-pointer rounded-md flex items-center justify-center group transition-colors duration-300 hover:bg-gray-700">
-      <Sun className="h-5 w-5 rotate-0 scale-100 transition-all duration-300 text-yellow-400 group-hover:rotate-90 group-hover:scale-0 group-hover:text-yellow-600" />
-      <Moon className="absolute h-5 w-5 rotate-360 scale-0 transition-all duration-300 text-white group-hover:rotate-0 group-hover:scale-100" />
+    <div className="relative h-8 w-8 cursor-pointer rounded-md flex items-center justify-center group transition-colors duration-1000 hover:bg-gray-700">
+      <Sun className="h-5 w-5 rotate-0 scale-100 transition-all duration-1000 text-yellow-400 group-hover:rotate-90 group-hover:scale-0 group-hover:text-yellow-600" />
+      <Moon className="absolute h-5 w-5 rotate-360 scale-0 transition-all duration-1000 text-white group-hover:rotate-0 group-hover:scale-100" />
     </div>
   );
 }
@@ -15,8 +15,9 @@ function CssTransitionDemo() {
 function CssTransitionDemo2() {
   return (
     <div className="relative">
-      <Sun className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all duration-300 dark:rotate-90 dark:scale-0 dark:hidden" />
-      <Moon className="absolute h-[1.2rem] w-[1.2rem] rotate-360 scale-0 transition-all duration-300 dark:rotate-0 dark:scale-100" />
+      Demo2:
+      <Sun className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-transform duration-100 dark:rotate-90 dark:scale-0" />
+      <Moon className="absolute h-[1.2rem] w-[1.2rem] rotate-360 scale-0 transition-transform duration-100 dark:rotate-0 dark:scale-100" />
     </div>
   );
 }
@@ -48,7 +49,7 @@ export default function Home() {
       </ul>
       <CssTransitionDemo />
       <CssTransitionDemo2 />
-      <p className="text-black transition-colors duration-700 dark:text-white">
+      <p className="text-black transition-colors duration-1000 dark:text-white">
         Test dark mode transition. Doesn't work. Transitions from light to dark
         mode don't work. Research:
       </p>
