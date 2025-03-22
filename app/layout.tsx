@@ -1,10 +1,10 @@
 import type { Metadata } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
 import Image from 'next/image';
+import { ThemeProvider } from '@/components/theme-provider';
+import { ModeToggle } from '@/components/ModeToggle';
 
 import './globals.css';
-
-import DarkModeToggle from '@/components/DarkModeToggle';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -31,17 +31,22 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased  min-h-screen transition-colors duration-[3s]`}
       >
-        {/* Parent container for your entire app */}
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)] min-h-screen">
+            <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
+              {children}
+            </main>
 
-        <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)] min-h-screen">
-          <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-            {children}
-          </main>
-
-          <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-            <DarkModeToggle />
-          </footer>
-        </div>
+            <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
+              <ModeToggle />
+            </footer>
+          </div>
+        </ThemeProvider>
       </body>
     </html>
   );
