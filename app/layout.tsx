@@ -29,7 +29,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased  min-h-screen`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased  min-h-screen bg-white text-black dark:bg-gray-900 dark:text-white`}
       >
         {/* Parent container for your entire app */}
 
@@ -37,10 +37,6 @@ export default function RootLayout({
           <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
             {children}
           </main>
-
-          <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-            <DarkModeToggle />
-          </footer>
         </div>
       </body>
     </html>

@@ -14,6 +14,7 @@ function CssTransitionDark() {
 export default function Home() {
   return (
     <>
+      <h1 className="text-9xl dark:white">Demo of Dark Mode</h1>
       <CssTransitionDark />
     </>
   );
